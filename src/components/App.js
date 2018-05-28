@@ -11,19 +11,21 @@ class App extends Component {
     this.state = {
       currentSearch: '',
       results: '',
-      favList: [11888, 58595]
+      favList: [],
+      detailed_list: ''
     };
   }
 
   componentDidMount() {
-    // this.ref = base.syncState(`url`, {
-    //   context: this,
-    //   state: 'favList'
-    // });
+    console.log(this.props.match.params.userId);
+    this.ref = base.syncState(`favlist`, {
+      context: this,
+      state: 'favList'
+    });
   }
 
   componentWillUnmount() {
-    // base.removeBinding(this.ref);
+    base.removeBinding(this.ref);
   }
 
   fetchResults = currentSearch => {
@@ -76,6 +78,8 @@ class App extends Component {
       this.setState({ favList: [...this.state.favList, id] });
     } else {
       console.log('it exiiiiisstttt');
+      let newList = oldList.filter(e => e !== id);
+      this.setState({ favList: newList });
     }
   };
 
@@ -83,14 +87,34 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <SearchField fetchResults={this.fetchResults} />
-        {this.state.results && (
-          <SearchResults
-            results={this.state.results}
-            updateFavList={this.updateFavList}
-            favList={this.state.favList}
-          />
-        )}
+        <div className="main">
+          <div className="fav-list">
+            <h4>Your Favs:</h4>
+            <div className="fav-item">1</div>
+            <div className="fav-item">2</div>
+            <div className="fav-item">3</div>
+            <div className="fav-item">4</div>
+            <div className="fav-item">5</div>
+            <div className="fav-item">2</div>
+            <div className="fav-item">3</div>
+            <div className="fav-item">4</div>
+            <div className="fav-item">5</div>
+            <div className="fav-item">2</div>
+            <div className="fav-item">3</div>
+            <div className="fav-item">4</div>
+            <div className="fav-item">5</div>
+          </div>
+          <div className="main-right">
+            <SearchField fetchResults={this.fetchResults} />
+            {this.state.results && (
+              <SearchResults
+                results={this.state.results}
+                updateFavList={this.updateFavList}
+                favList={this.state.favList}
+              />
+            )}
+          </div>
+        </div>
       </div>
     );
   }
