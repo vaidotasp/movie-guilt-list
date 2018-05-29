@@ -9,10 +9,10 @@ class MovieCard extends Component {
   }
 
   componentWillMount() {
-    let list = this.props.favList;
-    if (list) {
-      list = [];
-    }
+    // let list = this.props.favList;
+    // if (list) {
+    //   list = [];
+    // }
     // const { id } = this.props.movie;
     // console.log(list);
     // if (list.includes(id)) {
@@ -20,17 +20,32 @@ class MovieCard extends Component {
     // } else {
     //   this.setState({ isToggled: false });
     // }
+
+    let detailedList = this.props.detailed_list;
+    if (detailedList) {
+      detailedList = [{}];
+    }
   }
 
   componentDidMount() {
     let list = this.props.favList;
-
     const { id } = this.props.movie;
-    console.log(list);
-    if (list.includes(id)) {
-      this.setState({ isToggled: true });
-    } else {
+
+    let detailedList = this.props.detailed_list;
+    if (!detailedList.length) {
+      console.log('list is empty');
       this.setState({ isToggled: false });
+    } else {
+      console.log('list is not empty');
+      //comparison happens here
+      // detailedList.forEach(compare);
+      detailedList.forEach(e => {
+        if (e['id'] === id) {
+          this.setState({ isToggled: true });
+        } else {
+          // this.setState({ isToggled: false });
+        }
+      });
     }
   }
 
@@ -42,9 +57,11 @@ class MovieCard extends Component {
     }
   };
 
-  handleFavToggle = id => {
+  handleFavToggle = (id, title, poster_small) => {
     this.props.updateFavList(id);
+    this.props.updateDetailedList(id, title, poster_small);
   };
+
   render() {
     const { overview, poster_small, title, id } = this.props.movie;
 
@@ -54,7 +71,7 @@ class MovieCard extends Component {
         <div
           className={this.state.isToggled ? 'fav' : 'fav-off'}
           onClick={() => {
-            this.handleFavToggle(id);
+            this.handleFavToggle(id, title, poster_small);
             this.toggler();
           }}
         >

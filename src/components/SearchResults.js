@@ -13,7 +13,9 @@ class SearchResults extends Component {
               movie={e}
               key={e.id}
               updateFavList={this.props.updateFavList}
+              updateDetailedList={this.props.updateDetailedList}
               favList={this.props.favList}
+              detailed_list={this.props.detailed_list}
             />
           ))}
         </ul>
