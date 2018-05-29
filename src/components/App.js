@@ -100,6 +100,12 @@ class App extends Component {
     });
   };
 
+  removeFav = id => {
+    let oldList = [...this.state.detailed_list];
+    let filterFavs = oldList.filter(e => e.id !== id);
+    this.setState({ detailed_list: filterFavs });
+  };
+
   render() {
     let favItems = [...this.state.detailed_list];
 
@@ -115,6 +121,7 @@ class App extends Component {
                 title={e.title}
                 poster={e.poster_small}
                 id={e.id}
+                removeFav={this.removeFav}
               />
             ))}
           </div>
