@@ -7,8 +7,15 @@ class NavBar extends Component {
       <nav className="navbar">
         <h1>Movie Guilt List</h1>
         <div className="login-section">
-          <LoginButton />
-          <p id="user">User Placeholder</p>
+          <LoginButton
+            user={this.props.user}
+            logButtonHandler={this.props.logButtonHandler}
+          />
+          {this.props.user ? (
+            <p id="user">Hello {this.props.user}</p>
+          ) : (
+            <p id="user">Hello Anonymous</p>
+          )}
         </div>
       </nav>
     );

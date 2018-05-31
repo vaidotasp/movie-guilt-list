@@ -7,6 +7,7 @@ class SearchResults extends Component {
     return (
       <div className="search-container">
         <h3>Search Results:</h3>
+        {fetchedMovies.length === 0 ? <p>No Movies Found</p> : true}
         <ul>
           {fetchedMovies.map(e => (
             <MovieCard
@@ -19,8 +20,6 @@ class SearchResults extends Component {
             />
           ))}
         </ul>
-        {/* we would need to loop and extract and pass key values here */}
-        {/* <MovieCard movie={this.props.results[0]} /> */}
       </div>
     );
   }

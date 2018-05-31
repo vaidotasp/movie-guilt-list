@@ -9,18 +9,6 @@ class MovieCard extends Component {
   }
 
   componentWillMount() {
-    // let list = this.props.favList;
-    // if (list) {
-    //   list = [];
-    // }
-    // const { id } = this.props.movie;
-    // console.log(list);
-    // if (list.includes(id)) {
-    //   this.setState({ isToggled: true });
-    // } else {
-    //   this.setState({ isToggled: false });
-    // }
-
     let detailedList = this.props.detailed_list;
     if (detailedList) {
       detailedList = [{}];

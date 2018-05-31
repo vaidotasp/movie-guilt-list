@@ -13,17 +13,27 @@ class App extends Component {
       currentSearch: '',
       results: '',
       favList: [],
-      detailed_list: []
+      detailed_list: [],
+      user: null
     };
   }
 
   componentDidMount() {
     // console.log(this.props.match.params.userId);
-    this.ref = base.syncState(`detailed_list`, {
-      context: this,
-      state: 'detailed_list'
-    });
+    // if (this.state.user) {
+    //   this.ref = base.syncState(`detailed_list`, {
+    //     context: this,
+    //     state: 'detailed_list'
+    //   });
+    // }
+    // base.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //     this.logButtonHandler({ user });
+    //   }
+    // });
   }
+
+  componentDidUpdate;
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
@@ -106,12 +116,29 @@ class App extends Component {
     this.setState({ detailed_list: filterFavs });
   };
 
+  logButtonHandler = async user => {
+    console.log(`User param is bubbling up like cray!: ${user}`);
+    this.setState({ user: user });
+    //this should populate with firebase data???
+    const favs = await base.fetch(this.state.user, { context: this });
+    console.log(favs);
+    this.setState({ detailed_list: favs });
+
+    this.ref = base.syncState(`${this.state.user}/detailed_list`, {
+      context: this,
+      state: 'detailed_list'
+    });
+  };
+
   render() {
     let favItems = [...this.state.detailed_list];
 
     return (
       <div className="App">
-        <NavBar />
+        <NavBar
+          user={this.state.user}
+          logButtonHandler={this.logButtonHandler}
+        />
         <div className="main">
           <div className="fav-list">
             <h4>Movies you say you watch:</h4>
