@@ -23,8 +23,11 @@ class LoginButton extends Component {
 
   logoutHandler = async () => {
     console.log('Logout Clicked');
-    await firebase.auth().signOut();
-    this.props.logButtonHandler(null);
+    await firebase
+      .auth()
+      .signOut()
+      .then(this.props.logButtonHandler(null));
+
     //may need to clear state here?
   };
 

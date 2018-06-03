@@ -12,7 +12,6 @@ class App extends Component {
     this.state = {
       currentSearch: '',
       results: '',
-      favList: [],
       detailed_list: [],
       user: null
     };
@@ -33,7 +32,7 @@ class App extends Component {
     // });
   }
 
-  componentDidUpdate;
+  // componentDidUpdate;
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
@@ -78,16 +77,21 @@ class App extends Component {
   };
 
   //Add or remove movie to the fav list
-  updateFavList = id => {
-    let oldList = [...this.state.favList];
-    if (!oldList.includes(id)) {
-      console.log('it doeesss not!11');
-      this.setState({ favList: [...this.state.favList, id] });
-    } else {
-      console.log('it exiiiiisstttt');
-      let newList = oldList.filter(e => e !== id);
-      this.setState({ favList: newList });
-    }
+  // updateFavList = id => {
+  //   let oldList = [...this.state.favList];
+  //   if (!oldList.includes(id)) {
+  //     console.log('it doeesss not!11');
+  //     this.setState({ favList: [...this.state.favList, id] });
+  //   } else {
+  //     console.log('it exists');
+  //     let newList = oldList.filter(e => e !== id);
+  //     this.setState({ favList: newList });
+  //   }
+  // };
+  removeFav = id => {
+    let oldList = [...this.state.detailed_list];
+    let filterFavs = oldList.filter(e => e.id !== id);
+    this.setState({ detailed_list: filterFavs });
   };
 
   updateDetailedList = (id, title, poster_small) => {
@@ -98,36 +102,53 @@ class App extends Component {
       this.setState({ detailed_list: [newMovie] });
     }
     //check if existing movie being added already exists or is a new entry
-    oldList.forEach(e => {
-      console.log(`Matching X: ${e.id} with Y: ${id}`);
-      if (e.id === id) {
-        //how do we get rid of this nasty dupe?
+    for (let i = 0; i < oldList.length; i++) {
+      if (id === oldList[i]['id']) {
         let filteredDupes = oldList.filter(e => e.id !== id);
+        console.log(`This is what filtered list looks like: ${filteredDupes}`);
         this.setState({ detailed_list: filteredDupes });
-      } else {
+        return;
+      } else if (id !== oldList[i]['id']) {
         this.setState({ detailed_list: [...oldList, newMovie] });
       }
-    });
-  };
-
-  removeFav = id => {
-    let oldList = [...this.state.detailed_list];
-    let filterFavs = oldList.filter(e => e.id !== id);
-    this.setState({ detailed_list: filterFavs });
+    }
+    // oldList.forEach(e => {
+    //   if (e.id === id) {
+    //     console.log(`Matching X: ${e.id} with Y: ${id}`);
+    //     //how do we get rid of this nasty dupe?
+    //     let filteredDupes = oldList.filter(e => e.id !== id);
+    //     console.log(`This is what filtered list looks like: ${filteredDupes}`);
+    //     this.setState({ detailed_list: filteredDupes });
+    //   } else {
+    //     console.log(`NOT Matching X: ${e.id} with Y: ${id}`);
+    //     this.setState({ detailed_list: [...oldList, newMovie] });
+    //   }
+    //   return;
+    // });
   };
 
   logButtonHandler = async user => {
-    console.log(`User param is bubbling up like cray!: ${user}`);
-    this.setState({ user: user });
-    //this should populate with firebase data???
-    const favs = await base.fetch(this.state.user, { context: this });
-    console.log(favs);
-    this.setState({ detailed_list: favs });
-
-    this.ref = base.syncState(`${this.state.user}/detailed_list`, {
-      context: this,
-      state: 'detailed_list'
-    });
+    if (user) {
+      this.setState({ user: user });
+      //this should populate with firebase data???
+      const favs = await base.fetch(this.state.user, { context: this });
+      // console.log(favs);
+      this.setState({ detailed_list: favs });
+      this.ref = base.syncState(`${this.state.user}/detailed_list`, {
+        context: this,
+        state: 'detailed_list',
+        asArray: true
+      });
+    } else {
+      // this.ref = base.syncState(`${this.state.user}/detailed_list`, {
+      //   context: this,
+      //   state: 'detailed_list',
+      //   asArray: true
+      // });
+      base.removeBinding(this.ref);
+      this.setState({ user: null });
+      this.setState({ detailed_list: [] });
+    }
   };
 
   render() {
@@ -144,7 +165,7 @@ class App extends Component {
             <h4>Movies you say you watch:</h4>
             {favItems.map(e => (
               <FavItem
-                key={e.id}
+                key={e.id + 1}
                 title={e.title}
                 poster={e.poster_small}
                 id={e.id}
@@ -157,9 +178,7 @@ class App extends Component {
             {this.state.results && (
               <SearchResults
                 results={this.state.results}
-                updateFavList={this.updateFavList}
                 updateDetailedList={this.updateDetailedList}
-                favList={this.state.favList}
                 detailed_list={this.state.detailed_list}
               />
             )}

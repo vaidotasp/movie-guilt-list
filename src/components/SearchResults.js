@@ -12,10 +12,8 @@ class SearchResults extends Component {
           {fetchedMovies.map(e => (
             <MovieCard
               movie={e}
-              key={e.id}
-              updateFavList={this.props.updateFavList}
+              key={Date.now() + Math.random(1, 9)}
               updateDetailedList={this.props.updateDetailedList}
-              favList={this.props.favList}
               detailed_list={this.props.detailed_list}
             />
           ))}

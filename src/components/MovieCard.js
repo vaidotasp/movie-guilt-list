@@ -16,15 +16,12 @@ class MovieCard extends Component {
   }
 
   componentDidMount() {
-    let list = this.props.favList;
     const { id } = this.props.movie;
 
     let detailedList = this.props.detailed_list;
     if (!detailedList.length) {
-      console.log('list is empty');
       this.setState({ isToggled: false });
     } else {
-      console.log('list is not empty');
       //comparison happens here
       // detailedList.forEach(compare);
       detailedList.forEach(e => {
@@ -46,7 +43,6 @@ class MovieCard extends Component {
   };
 
   handleFavToggle = (id, title, poster_small) => {
-    this.props.updateFavList(id);
     this.props.updateDetailedList(id, title, poster_small);
   };
 
