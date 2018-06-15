@@ -37,12 +37,12 @@ class LoginButton extends Component {
         {this.props.user ? (
           //user is logged in -> handle user state
           <button onClick={this.logoutHandler} className="button button-login">
-            logout
+            log out
           </button>
         ) : (
           //user is logged OUT -> handle user state
           <button onClick={this.loginHandler} className="button button-login">
-            login
+            log in
           </button>
         )}
       </div>

@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import SearchField from './SearchField';
 import SearchResults from './SearchResults';
 import FavItem from './FavItem';
+import Footer from './Footer';
 import base from '../base';
 
 class App extends Component {
@@ -72,7 +73,8 @@ class App extends Component {
           //limit the search results to 10 as any more would be redundant at this time
           .slice(0, 10);
         this.setState({ results: filteredList });
-      });
+      })
+      .catch(err => console.error(err));
     this.setState({ currentSearch: currentSearch });
   };
 
@@ -160,9 +162,9 @@ class App extends Component {
           user={this.state.user}
           logButtonHandler={this.logButtonHandler}
         />
-        <div className="main">
+        <div className="main-wrapper">
           <div className="fav-list">
-            <h4>Movies you say you watch:</h4>
+            <h4>Movies you save will appear here</h4>
             {favItems.map(e => (
               <FavItem
                 key={e.id + 1}
@@ -173,7 +175,7 @@ class App extends Component {
               />
             ))}
           </div>
-          <div className="main-right">
+          <div className="main-left">
             <SearchField fetchResults={this.fetchResults} />
             {this.state.results && (
               <SearchResults
@@ -184,6 +186,7 @@ class App extends Component {
             )}
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

@@ -9,9 +9,10 @@ body {
   color: var(--letter);
   align-content: center;
   text-align: center;
-  background-color: var(--main-background);
-  margin: 0;
+  margin: 0 auto;
   font-family: Arial, Helvetica, sans-serif;
+  width: 80vw;
+  background-color: #fff;
 }
 
 p,
@@ -29,8 +30,9 @@ li {
 }
 
 .navbar {
+  background-color: var(--main-background);
   /* border: 1px solid black; */
-  background-color: silver;
+  background-color: #191919;
   margin: 0;
   padding: 5px;
   display: grid;
@@ -41,6 +43,7 @@ li {
 
 .navbar > h1 {
   margin-left: 20px;
+  color: white;
 }
 
 .login-section {
@@ -49,39 +52,42 @@ li {
   margin-right: 20px;
 }
 
+.login-section > p {
+  margin-top: 4px;
+  color: white;
+}
+
 .button {
   text-transform: uppercase;
-  border: 1px dotted palevioletred;
-  background-color: black;
+  background-color: orange;
   color: white;
-  font-weight: 700;
-  width: 150px;
+  width: 115px;
   font-size: 25px;
   cursor: pointer;
+  padding: 1px;
+  border: 0px solid white;
+  border-radius: 2px;
 }
 
 .button:hover {
   color: gold;
 }
 .search-component {
+  background-color: var(--main-background);
   display: grid;
   width: auto;
   grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
-  margin: 50px auto;
+  margin: 20px auto;
   padding: 10px;
 }
 
 .search-icon {
   background-color: orange;
-  /* color: white; */
-  /* font-size: 25px; */
   width: 60px;
-  height: 43px;
-  padding: 3px;
-  /* height: 31px; */
-  border-radius: 2px;
+  height: 50px;
+  border-radius: 1px;
   cursor: pointer;
   background-image: url(/public/images/search.svg);
   background-size: contain;
@@ -101,12 +107,16 @@ li {
 #search {
   border: 0;
   border-radius: 2px;
+  width: 400px;
   padding: 1px;
   text-decoration: none;
   font-size: 25px;
   padding: 10px;
   color: var(--black);
   background-color: #fff;
+  border-top: 0.5px solid rgba(255, 217, 0, 0);
+  border-left: 0.5px solid rgba(255, 217, 0, 0);
+  border-bottom: 0.5px solid rgba(255, 217, 0, 0);
 }
 
 #search:focus {
@@ -213,35 +223,43 @@ li {
 }
 
 /* Main Wrapper Style - BEGINS */
-.main {
+.main-wrapper {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr 200px;
+  background-color: var(--main-background);
+  min-height: 89vh;
 }
 
-.main-right {
+.main-left {
+  background-color: var(--main-background);
   display: grid;
+  grid-column: 1 / 2;
+  grid-row: 1 / -1;
+  align-items: baseline;
 }
 
 .fav-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 15px;
-  grid-gap: 10px;
-  grid-column: 1 / 2;
-  width: auto;
-  background-color: coral;
+  grid-template-columns: 1fr;
+  background-color: #ff5a2878;
   overflow-y: auto;
-  /* height: 100vh; */
+  /* height: 80vh; */
   max-height: 100vh;
-  margin-left: 10px;
-  margin-top: 40px;
-  padding-right: 30px;
-  justify-content: top;
+  grid-gap: 10px;
+  padding: 10px;
+  justify-items: center;
+  border-radius: 2px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+  align-content: start;
+  margin-top: 30px;
+  margin-right: 20px;
+  margin-bottom: 10px;
 }
 
 .fav-list > h4 {
-  grid-column: 1 / 3;
   margin: 0;
+  padding: 0;
+  margin-top: 20px;
 }
 
 .fav-item {
@@ -287,5 +305,25 @@ li {
 
 .fav-title {
   font-size: 12px;
+}
+
+.footer {
+  background-color: #191919;
+  margin: 0;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap:10px;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 13px;
+  padding:2px;
+}
+
+.footer > a > svg {
+  width: 20px;
+  fill: #fff;
+  cursor:pointer;
 }
 /* Main Wrapper Style - ENDS */
