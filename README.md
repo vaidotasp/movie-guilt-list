@@ -5,6 +5,9 @@
 This project is set to track movies you want to see, but likely never will, thus compiling ultimate guilt list.
 The project is being built in order to learn and explore React, CSS Grid and Firebase in particular.
 
+**Demo**
+![](https://media.giphy.com/media/2iZflu4GBg8tK7E9Wn/giphy.gif)
+
 ## Tech used:
 
 - UI Rendering - React
