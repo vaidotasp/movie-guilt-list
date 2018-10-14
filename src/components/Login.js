@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
 
-const Login = () => {};
+const Login = () => { };
 
 export default Login;

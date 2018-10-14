@@ -3,7 +3,7 @@ import MovieCard from './MovieCard';
 
 class SearchResults extends Component {
   render() {
-    let fetchedMovies = this.props.results;
+    const fetchedMovies = this.props.results;
     return (
       <div className="search-container">
         <h3>Search Results:</h3>

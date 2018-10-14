@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class FavItem extends Component {
   handleRemoveFav = id => {
-    console.log('remove THIIIS PLEASE', id);
     this.props.removeFav(id);
   };
 

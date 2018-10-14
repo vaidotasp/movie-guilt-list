@@ -18,23 +18,6 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    // console.log(this.props.match.params.userId);
-    // if (this.state.user) {
-    //   this.ref = base.syncState(`detailed_list`, {
-    //     context: this,
-    //     state: 'detailed_list'
-    //   });
-    // }
-    // base.auth().onAuthStateChanged(user => {
-    //   if (user) {
-    //     this.logButtonHandler({ user });
-    //   }
-    // });
-  }
-
-  // componentDidUpdate;
-
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
@@ -78,18 +61,6 @@ class App extends Component {
     this.setState({ currentSearch: currentSearch });
   };
 
-  //Add or remove movie to the fav list
-  // updateFavList = id => {
-  //   let oldList = [...this.state.favList];
-  //   if (!oldList.includes(id)) {
-  //     console.log('it doeesss not!11');
-  //     this.setState({ favList: [...this.state.favList, id] });
-  //   } else {
-  //     console.log('it exists');
-  //     let newList = oldList.filter(e => e !== id);
-  //     this.setState({ favList: newList });
-  //   }
-  // };
   removeFav = id => {
     let oldList = [...this.state.detailed_list];
     let filterFavs = oldList.filter(e => e.id !== id);
@@ -114,19 +85,6 @@ class App extends Component {
         this.setState({ detailed_list: [...oldList, newMovie] });
       }
     }
-    // oldList.forEach(e => {
-    //   if (e.id === id) {
-    //     console.log(`Matching X: ${e.id} with Y: ${id}`);
-    //     //how do we get rid of this nasty dupe?
-    //     let filteredDupes = oldList.filter(e => e.id !== id);
-    //     console.log(`This is what filtered list looks like: ${filteredDupes}`);
-    //     this.setState({ detailed_list: filteredDupes });
-    //   } else {
-    //     console.log(`NOT Matching X: ${e.id} with Y: ${id}`);
-    //     this.setState({ detailed_list: [...oldList, newMovie] });
-    //   }
-    //   return;
-    // });
   };
 
   logButtonHandler = async user => {
@@ -142,11 +100,6 @@ class App extends Component {
         asArray: true
       });
     } else {
-      // this.ref = base.syncState(`${this.state.user}/detailed_list`, {
-      //   context: this,
-      //   state: 'detailed_list',
-      //   asArray: true
-      // });
       base.removeBinding(this.ref);
       this.setState({ user: null });
       this.setState({ detailed_list: [] });
@@ -191,20 +144,5 @@ class App extends Component {
     );
   }
 }
-
-// class FavItem extends Component {
-//   render() {
-//     return (
-//       <div className="fav-item">
-//         <p className="fav-title">{this.props.title}</p>
-//         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-//           <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z" />
-//         </svg>
-//         {/* <div className="fav-remove">X</div> */}
-//         <img src={this.props.poster} alt="poster-img" />
-//       </div>
-//     );
-//   }
-// }
 
 export default App;
