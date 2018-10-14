@@ -22,5 +22,11 @@
   "devDependencies": {
     "eslint-plugin-prettier": "^3.0.0",
     "prettier": "1.14.2"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
